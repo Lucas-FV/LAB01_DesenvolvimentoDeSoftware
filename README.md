@@ -108,3 +108,9 @@ O valor deve ser calculado com base no número de disciplinas e créditos matric
 * Disciplinas com 60 alunos matriculados devem ser bloqueadas para novas inscrições.
 * O sistema deve manter registros de logins, matrículas, cancelamentos e cobranças.
 * Todos os usuários devem ter credenciais únicas.
+
+## Diagrama de casos de uso
+
+![diagrama_casos_uso_sprint_1](https://github.com/user-attachments/assets/8b222789-1974-4d87-97c4-6ddf8a43bc4b)
+
+
