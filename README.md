@@ -94,7 +94,7 @@ O acesso deve ser restrito apenas às disciplinas sob responsabilidade do profes
 
 * História 7: Gerar Cobrança
 
-Como agente financeiro, quero receber automaticamente as informações de matrícula dos alunos, para gerar as cobranças correspondentes às disciplinas selecionadas.
+Como agente financeiro, quero vizualizar as informações de matrícula dos alunos, para gerar as cobranças correspondentes às disciplinas selecionadas
 
 * Critérios de Aceitação:  
 
@@ -106,7 +106,7 @@ O valor deve ser calculado com base no número de disciplinas e créditos matric
 * O período de matrícula deve ter datas definidas pela secretaria e ser respeitado pelo sistema.
 * Disciplinas com menos de 3 alunos no fim do período de matrícula devem ser automaticamente canceladas.
 * Disciplinas com 60 alunos matriculados devem ser bloqueadas para novas inscrições.
-* O sistema deve manter registros de logins, matrículas, cancelamentos e cobranças.
+* O sistema deve manter registros de matrículas, cancelamentos e cobranças.
 * Todos os usuários devem ter credenciais únicas.
 
 ## Diagrama de casos de uso
