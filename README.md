@@ -41,6 +41,10 @@ Como secretária da universidade, quero gerar o currículo de disciplinas para c
 O currículo deve conter todas as disciplinas obrigatórias e optativas disponíveis.
 O currículo deve estar acessível no sistema antes da abertura do período de matrículas.
 
+* História 2: Gerenciar Dados
+
+Como secretária da universidade, quero armazenar as matrículas, cancelamentos e cobranças de todos os alunos, para poder ter acesso posteriormente.
+
 ### 2. Aluno
 
 * História 2: Fazer Login
@@ -94,7 +98,7 @@ O acesso deve ser restrito apenas às disciplinas sob responsabilidade do profes
 
 * História 7: Gerar Cobrança
 
-Como agente financeiro, quero vizualizar as informações de matrícula dos alunos, para gerar as cobranças correspondentes às disciplinas selecionadas
+Como agente financeiro, quero gerar as cobranças correspondentes às disciplinas selecionadas
 
 * Critérios de Aceitação:  
 
