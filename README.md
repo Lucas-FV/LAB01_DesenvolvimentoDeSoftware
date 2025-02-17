@@ -111,6 +111,6 @@ O valor deve ser calculado com base no número de disciplinas e créditos matric
 
 ## Diagrama de casos de uso
 
-![diagrama_casos_uso_sprint_1](https://github.com/user-attachments/assets/8b222789-1974-4d87-97c4-6ddf8a43bc4b)
+![diagrama_casos_uso_sprint_1](Projeto/DiagramaCasosDeUso/CasoDeUso.LabDesenSoftware-01.png 6ddf8a43bc4b)
 
 
