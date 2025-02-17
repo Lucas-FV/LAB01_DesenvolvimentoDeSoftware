@@ -47,7 +47,7 @@ Como secretária da universidade, quero armazenar as matrículas, cancelamentos 
 
 ### 2. Aluno
 
-* História 2: Fazer Login
+* História 3: Fazer Login
 
 Como aluno, quero acessar o sistema com um login e senha válidos, para visualizar e gerenciar minhas matrículas.
 
@@ -56,7 +56,7 @@ Como aluno, quero acessar o sistema com um login e senha válidos, para visualiz
 O sistema deve validar as credenciais antes de permitir o acesso.
 O sistema deve bloquear o acesso após 3 tentativas inválidas.
 
-* História 3: Matricular-se em Disciplinas Obrigatórias
+* História 4: Matricular-se em Disciplinas Obrigatórias
 
 Como aluno, quero me matricular em até 4 disciplinas obrigatórias, para atender os requisitos do meu curso no semestre.
 
@@ -65,7 +65,7 @@ Como aluno, quero me matricular em até 4 disciplinas obrigatórias, para atende
 O sistema deve permitir a matrícula apenas durante o período estabelecido.
 O sistema deve impedir a matrícula se a capacidade da disciplina estiver completa.
 
-* História 4: Matricular-se em Disciplinas Optativas
+* História 5: Matricular-se em Disciplinas Optativas
 
 Como aluno, quero me matricular em até 2 disciplinas optativas, para ampliar meu conhecimento e cumprir créditos extras.
 
@@ -74,7 +74,7 @@ Como aluno, quero me matricular em até 2 disciplinas optativas, para ampliar me
 O sistema deve permitir a matrícula apenas se o aluno já tiver feito a matrícula obrigatória.
 O sistema deve bloquear a matrícula caso o número máximo de vagas tenha sido atingido.
 
-* História 5: Cancelar Matrícula
+* História 6: Cancelar Matrícula
 
 Como aluno, quero cancelar minha matrícula em uma disciplina, para ajustar minha carga horária conforme minha disponibilidade.
 
@@ -85,7 +85,7 @@ O sistema deve notificar o setor financeiro sobre a alteração.
 
 ### 3. Professor
 
-* História 6: Consultar Matrículas
+* História 7: Consultar Matrículas
 
 Como professor, quero visualizar a lista de alunos matriculados em minhas disciplinas, para planejar melhor minhas aulas e atividades.
 
@@ -96,7 +96,7 @@ O acesso deve ser restrito apenas às disciplinas sob responsabilidade do profes
 
 ### 4. Sistema Financeiro
 
-* História 7: Gerar Cobrança
+* História 8: Gerar Cobrança
 
 Como agente financeiro, quero gerar as cobranças correspondentes às disciplinas selecionadas
 
