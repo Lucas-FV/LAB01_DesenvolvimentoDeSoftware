@@ -1,0 +1,90 @@
+@startuml diagramaDeClasse
+
+
+package "Usuarios"{
+    User <|-- Aluno
+    User <|-- Prof
+    User <|-- Sec
+    User <|-- Cobrador
+
+    abstract class "User"{ 
+        -Long id 
+        -String nome 
+        -String password
+
+        +void login()
+        +void cadastrar(String nome, String password)
+    }
+
+    class "Aluno"{ 
+        -Matricula[] matriculas 
+        -Map<Materia, Long> notas
+    }
+
+    class "Professor" as Prof{
+        -Materia[] materias
+        +void atribuirMateria(Materia materia)
+    }
+
+    class "Secretaria" as Sec{
+        -List<User> usuarios
+
+        +void cadastrarMateria(String nome, Professor prof)
+    }
+
+    class "Agente Financeiro" as Cobrador{
+        +void gerarBoleto(Aluno aluno)
+    }
+
+}
+
+package "Academico"{
+    Matricula *-- Materia
+    Materia -- Prof
+    Aluno -- Matricula
+    Curriculo *-- Curso
+    Curriculo o-- Materia
+
+    class "Materia" { 
+        -String nome 
+        -Professor responsavel 
+        -Matricula[] matriculados
+
+        +String ConsultarAlunos()
+        +void cadastrarAluno(Aluno aluno) 
+    }
+
+    class "Matricula"{
+        -Materia materia 
+
+        +void matricular(Materia materia) 
+        +void cancelarMatricula() 
+    }
+
+    class "Curso"{
+        -String nome
+        -int creditos
+        -Curriculo curriculo
+
+        +void cadastrarCurriculo()
+    }
+
+    class "Curriculo"{
+        -List<Materia> disciplinas
+        +void cadastrarMateria(Materia materia)
+    }
+}
+
+package "Financeiro"{ 
+    Cobrador -- Cobranca
+
+    class "Cobranca"{
+        -Long id
+        -Double valor
+
+        -Double calcValor(Aluno aluno)
+    } 
+}
+
+
+@enduml

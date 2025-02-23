@@ -1,0 +1,34 @@
+@startuml diagramaCasoDeUso
+
+:Secretaria: as Sec
+:Usuario: as User
+:Professor: as Prof
+:Agente Financeiro: as Cobrador
+User <|-- Aluno
+User <|-- Prof
+User <|-- Sec
+User <|-- Cobrador
+
+
+rectangle Sistema_Matricula{
+    (Matricula obrigatoria) as Mat
+    Sec --> (Gerar Curriculo)
+    Aluno --> Mat
+    Mat .> (Matricula opcional) : extends
+    Aluno --> (Cancelar Matricula)
+    Mat --> Sec
+    Mat --> Cobrador
+    Prof --> (Consultar Matriculas)
+    User --> (Fazer Login)
+    Sec --> (Gerenciar matricula)
+    Sec --> (Gerenciar Cancelamentos)
+    Sec --> (Gerenciar Cobrancas)
+    (Gerenciar Cobrancas) --> Cobrador
+}
+
+rectangle Sistema_Financeiro{
+    Cobrador --> (Gerar Cobrança)
+    (Gerar Cobrança) --> Aluno
+}
+
+@enduml
