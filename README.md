@@ -118,3 +118,6 @@ O valor deve ser calculado com base no número de disciplinas e créditos matric
 ![CasoDeUso LabDesenSoftware-01](https://github.com/user-attachments/assets/950a2f15-ca74-42d0-9b09-8c3e8879c609)
 
 ## Diagrama de Classe
+
+![diagramaDeClasse](https://github.com/user-attachments/assets/794ba553-c84e-4b02-a2a9-56ada85318f1)
+
