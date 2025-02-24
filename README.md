@@ -45,16 +45,19 @@ O currículo deve estar acessível no sistema antes da abertura do período de m
 
 Como secretária da universidade, quero armazenar as matrículas, cancelamentos e cobranças de todos os alunos, para poder ter acesso posteriormente.
 
-### 2. Aluno
+### 2. Usuário
 
 * História 3: Fazer Login
 
-Como aluno, quero acessar o sistema com um login e senha válidos, para visualizar e gerenciar minhas matrículas.
+Como usuário, quero acessar o sistema com um login e senha válidos.
 
 * Critérios de Aceitação:  
 
 O sistema deve validar as credenciais antes de permitir o acesso.
 O sistema deve bloquear o acesso após 3 tentativas inválidas.
+
+
+### 3. Aluno
 
 * História 4: Matricular-se em Disciplinas Obrigatórias
 
@@ -83,7 +86,7 @@ Como aluno, quero cancelar minha matrícula em uma disciplina, para ajustar minh
 O sistema deve permitir o cancelamento apenas durante o período de matrícula.
 O sistema deve notificar o setor financeiro sobre a alteração.
 
-### 3. Professor
+### 4. Professor
 
 * História 7: Consultar Matrículas
 
@@ -94,7 +97,7 @@ Como professor, quero visualizar a lista de alunos matriculados em minhas discip
 O sistema deve exibir o nome, número de matrícula e curso dos alunos.
 O acesso deve ser restrito apenas às disciplinas sob responsabilidade do professor.
 
-### 4. Sistema Financeiro
+### 5. Sistema Financeiro
 
 * História 8: Gerar Cobrança
 
@@ -115,7 +118,7 @@ O valor deve ser calculado com base no número de disciplinas e créditos matric
 
 ## Diagrama de casos de uso
 
-![CasoDeUso LabDesenSoftware-01](https://github.com/user-attachments/assets/950a2f15-ca74-42d0-9b09-8c3e8879c609)
+![Diagram de caso de usoAtualizado](https://github.com/user-attachments/assets/09a8ac4e-ca9b-4452-b6ea-aaf2a107b287)
 
 ## Diagrama de Classe
 
