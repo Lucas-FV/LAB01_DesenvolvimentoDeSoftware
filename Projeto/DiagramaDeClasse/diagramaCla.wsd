@@ -17,8 +17,11 @@ package "Usuarios"{
     }
 
     class "Aluno"{ 
-        -Matricula[] matriculas 
+        -Materia[] materias
         -Map<Materia, Long> notas
+
+        +void matricular(Materia materia)
+        +void cancelarMatricula()
     }
 
     class "Professor" as Prof{
@@ -39,27 +42,20 @@ package "Usuarios"{
 }
 
 package "Academico"{
-    Matricula *-- Materia
     Materia -- Prof
-    Aluno -- Matricula
+    Aluno -- Materia
     Curriculo *-- Curso
     Curriculo o-- Materia
 
     class "Materia" { 
         -String nome 
         -Professor responsavel 
-        -Matricula[] matriculados
+        -Final int maximoAlunos
 
         +String ConsultarAlunos()
         +void cadastrarAluno(Aluno aluno) 
     }
 
-    class "Matricula"{
-        -Materia materia 
-
-        +void matricular(Materia materia) 
-        +void cancelarMatricula() 
-    }
 
     class "Curso"{
         -String nome
