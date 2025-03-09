@@ -10,4 +10,8 @@ import Academico.*;
 public class Aluno extends User {
     private List<Matricula> matriculas = new ArrayList<>();
     private Map<Materia, Long> notas = new HashMap<>();
+
+    public Aluno(Long id, String nome, String password){
+        super(id, nome, password);
+    }
 }
