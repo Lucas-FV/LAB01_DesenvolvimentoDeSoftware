@@ -13,7 +13,17 @@ public class Materia {
         return matriculados.toString();
     }
 
-    public void cadastrarAluno(Aluno aluno) {
+    public boolean adicionarAluno(Aluno aluno) {
+        if (matriculados.size() >= 60) {
+            System.out.println("Matéria cheia! Matrícula não realizada.");
+            return false;
+        }
         matriculados.add(new Matricula(this));
+        return true;
     }
+    
+    public boolean verificarAtivacao() {
+        return matriculados.size() >= 3;
+    }
+    
 }

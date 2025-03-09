@@ -3,10 +3,12 @@ package Financeiro;
 import Usuarios.*;
 
 public class Cobranca {
-    private Long id;
+    private static Long id;
     private Double valor;
+    private final Double VALOR_MATERIA = 500.00;
 
-    public Double calcValor(Aluno aluno) {
-        return valor; // Implementação do cálculo do valor
+    public double calcularValor(Aluno aluno) {
+        int qtdDisciplinas = aluno.getMatriculas().size();
+        return qtdDisciplinas * VALOR_MATERIA; 
     }
 }
