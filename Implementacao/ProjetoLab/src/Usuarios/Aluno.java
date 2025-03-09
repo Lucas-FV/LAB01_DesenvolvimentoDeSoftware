@@ -11,10 +11,14 @@ public class Aluno extends User {
     private List<Matricula> matriculas;
     private Map<Materia, Long> notas;
 
-    protected Aluno(String nome, String password) {
-        super(nome, password);
+    public Aluno(String nome, String password) {
+        super(nome, password, 1);
         matriculas = new ArrayList<>();
         notas = new HashMap<>();
+    }
+
+    public List<Matricula> getMatriculas(){
+        return matriculas;
     }
 
 }

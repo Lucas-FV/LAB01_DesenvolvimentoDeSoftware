@@ -9,8 +9,8 @@ public class Professor extends User {
     private List<Materia> materias;
 
     
-    protected Professor(String nome, String password) {
-            super(nome, password);
+    public Professor(String nome, String password) {
+            super(nome, password, 2);
             materias = new ArrayList<>();
         }
     

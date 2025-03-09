@@ -7,14 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Secretaria extends User {
+public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃO SECRETÁRIA
 
     private static final String caminhoDosUsuarios = "src/Data/usuarios.txt";
     private List<User> usuarios;
     private static Secretaria secretaria;
+    private List<User> alunos;
+    private List<User> professors;
+    private List<User> cobradores;
+    private String userString = "";
 
     private Secretaria() {
-        super("Secretaria", "123");
+        super("Secretaria", "123", 0);
         usuarios = new ArrayList<>();
         carregarUsuarios();
     }
@@ -34,8 +38,8 @@ public class Secretaria extends User {
             String linha;
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(",");
-                if (partes.length == 3) {
-                    usuarios.add(new User(partes[1], partes[2]));
+                if (partes.length == 4) {
+                    usuarios.add(new User(Integer.parseInt(partes[0]), partes[1], partes[2], Integer.parseInt(partes[3])));
                 }
             }
             User.setID();
@@ -103,6 +107,35 @@ public class Secretaria extends User {
             .filter(user -> user.login.equals(login))
             .findFirst()
             .orElse(null);
+    }
+
+    public String getAlunos(){
+        separarUsuarios();
+
+        alunos.stream().forEach(u -> userString += "\n" + u.toString()); 
+        return userString;
+    }
+
+    public String getProfessores(){
+        separarUsuarios();
+
+        professors.stream().forEach(u -> userString += "\n" + u.toString()); 
+        return userString;
+    }
+
+    public String getAgenteFinanceiro(){
+        separarUsuarios();
+
+        cobradores.stream().forEach(u -> userString += "\n" + u.toString()); 
+        return userString;
+    }
+
+    private void separarUsuarios(){
+        for(User user : usuarios){
+            if(user.TIPO == 1) alunos.add(user);
+            else if(user.TIPO == 2) professors.add(user);
+            else if(user.TIPO == 3) cobradores.add(user);
+        }
     }
 
     public void cadastrarMateria(String nome, Professor prof) {
