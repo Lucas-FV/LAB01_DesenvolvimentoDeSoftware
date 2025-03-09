@@ -7,4 +7,8 @@ public class AgenteFinanceiro extends User{
         //TODO Auto-generated constructor stub
     }
     
+
+    public void gerarBoleto (Aluno aluno){
+  
+    }
 }
