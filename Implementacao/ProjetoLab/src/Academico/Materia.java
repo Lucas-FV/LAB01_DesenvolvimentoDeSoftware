@@ -37,6 +37,6 @@ public class Materia {
 
     @Override
     public String toString(){
-        return nome + " | " + responsavel.getNome() + " | " + matriculados.size();
+        return nome + "_" + responsavel.getNome() + "_" + matriculados.size();
     }
 }

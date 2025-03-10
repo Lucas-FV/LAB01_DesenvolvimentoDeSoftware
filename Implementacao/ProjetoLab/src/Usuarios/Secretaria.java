@@ -6,20 +6,20 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import Academico.Curriculo;
 import Academico.Curso;
 import Academico.Materia;
 
 public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃO SECRETÁRIA
-    private static Secretaria secretaria;
+    private static final Secretaria Instancia = new Secretaria();
 
     private static final String caminhoDosUsuarios = "src/Data/usuarios.txt";
     private List<User> usuarios;
     private List<User> alunos;
     private List<User> professors;
     private List<User> cobradores;
-    private String userString = "";
 
     private static final String caminhoDosCursos = "src/Data/cursos.txt";
     private static final String caminhoDasMaterias = "src/Data/materias.txt";
@@ -34,16 +34,21 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
         professors = new ArrayList<>();
         cobradores = new ArrayList<>();
         cursos = new ArrayList<>();
-        carregarUsuarios();
-        carregarCursos();
-        carregarMaterias();
+        todasMaterias = new ArrayList<>();
+    
+        try {
+            carregarUsuarios();
+            carregarCursos();
+            carregarMaterias();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Erro ao carregar dados na Secretaria. Verifique os arquivos.");
+        }
     }
+    
 
     public static Secretaria getInstance() {
-        if (secretaria == null) {
-            secretaria = new Secretaria();
-        }
-        return secretaria;
+        return Instancia;
     }
 
     private void carregarUsuarios() {
@@ -85,22 +90,16 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
         }
     }
 
-    public Integer localizarUltimoID(){
-        File arquivo = new File(caminhoDosUsuarios);
-
-        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
-            String linha;
-            String aux = "";
-            while ((linha = br.readLine()) != null) {
-                aux = linha;
-            }
-            String[] partes = aux.split(",");
-        return Integer.parseInt(partes[0]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public Integer localizarUltimoID() {
+    try (Stream<String> linhas = Files.lines(Paths.get(caminhoDosUsuarios))) {
+        return linhas.reduce((first, second) -> second)  // Pega a última linha
+                .map(l -> Integer.parseInt(l.split(",")[0])) // Extrai o ID
+                .orElse(0);
+    } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
     }
+    return 0;
+}
 
     public boolean removerUsuario(Integer login) {
         boolean removido = usuarios.removeIf(user -> user.login.equals(login));
@@ -123,38 +122,43 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
             .findFirst()
             .orElse(null);
     }
-
-    public String getAlunos(){
+    
+    public String getAlunos() {
         separarUsuarios();
-
-        alunos.stream().forEach(u -> userString += "\n" + u.toString()); 
-        return userString;
+        return alunos.stream()
+                     .map(User::toString)
+                     .collect(Collectors.joining("\n"));
     }
-
-    public String getProfessores(){
+    
+    public String getProfessores() {
         separarUsuarios();
-
-        professors.stream().forEach(u -> userString += "\n" + u.toString()); 
-        return userString;
+        return professors.stream()
+                         .map(User::toString)
+                         .collect(Collectors.joining("\n"));
     }
-
-    public String getAgenteFinanceiro(){
+    
+    public String getAgenteFinanceiro() {
         separarUsuarios();
-
-        cobradores.stream().forEach(u -> userString += "\n" + u.toString()); 
-        return userString;
+        return cobradores.stream()
+                         .map(User::toString)
+                         .collect(Collectors.joining("\n"));
     }
-
-    private void separarUsuarios(){
-        for(User user : usuarios){
-            if(user.TIPO == 1) alunos.add(user);
-            else if(user.TIPO == 3) cobradores.add(user);
+    
+    private void separarUsuarios() {
+        alunos.clear();
+        professors.clear();
+        cobradores.clear();
+    
+        for (User user : usuarios) {
+            if (user.TIPO == 1) alunos.add(user);
+            else if (user.TIPO == 2) professors.add(user); 
+            else if (user.TIPO == 3) cobradores.add(user);
         }
-    }
+    }   
 
     private User getProfessorByName(String nome){
         separarUsuarios();
-        return professors.stream().filter(u -> u.getNome() == nome).findFirst().orElse(null);
+        return professors.stream().filter(u -> u.getNome().equals(nome)).findFirst().orElse(null);
     }
 
     private void carregarCursos() {
@@ -169,8 +173,8 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
                     Curriculo curriculo = new Curriculo();
                     String[] materias = partes[2].split(" - ");
 
-                    for(int i=0; i > materias.length; i++){
-                        String[] mat = materias[i].split(" | ");
+                    for(int i=0; i < materias.length; i++){
+                        String[] mat = materias[i].split("_");
                         Materia m = new Materia(mat[0], (Professor)getProfessorByName(mat[1]));
                         curriculo.cadastrarMateria(m);
                         todasMaterias.add(m);
@@ -212,7 +216,7 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                    String[] mat = linha.split(" | ");
+                    String[] mat = linha.split("_");
                     Materia m = new Materia(mat[0], (Professor)getProfessorByName(mat[1]));
                     todasMaterias.add(m);
 
