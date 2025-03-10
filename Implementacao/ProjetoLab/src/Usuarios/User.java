@@ -15,7 +15,6 @@ public class User {
         this.nome = nome;
         this.password = password;
         login = id++;
-        Secretaria.getInstance().registarUser(this);
         this.TIPO = tipo;
     }
 

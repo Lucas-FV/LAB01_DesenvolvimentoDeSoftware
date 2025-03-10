@@ -13,16 +13,17 @@ import Academico.Curso;
 import Academico.Materia;
 
 public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃO SECRETÁRIA
-    private static final Secretaria Instancia = new Secretaria();
+    private static Secretaria instancia;
 
+    private static final String caminhoDosCursos = "src/Data/cursos.txt";
+    private static final String caminhoDasMaterias = "src/Data/materias.txt";
     private static final String caminhoDosUsuarios = "src/Data/usuarios.txt";
+
     private List<User> usuarios;
     private List<User> alunos;
     private List<User> professors;
     private List<User> cobradores;
 
-    private static final String caminhoDosCursos = "src/Data/cursos.txt";
-    private static final String caminhoDasMaterias = "src/Data/materias.txt";
     private List<Curso> cursos;
     private List<Materia> todasMaterias;
 
@@ -41,14 +42,15 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
             carregarCursos();
             carregarMaterias();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Erro ao carregar dados na Secretaria. Verifique os arquivos.");
+           e.printStackTrace();
+           System.err.println("Erro ao carregar dados na Secretaria. Verifique os arquivos.");
         }
     }
     
 
     public static Secretaria getInstance() {
-        return Instancia;
+        if(instancia == null) instancia = new Secretaria();
+        return instancia;
     }
 
     private void carregarUsuarios() {

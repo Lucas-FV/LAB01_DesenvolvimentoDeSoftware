@@ -54,6 +54,8 @@ public class App {
         }else if(tipo == 2){
             user = new Professor(nome, senha);
         }else System.out.println("Tipo não é válido");
+        Secretaria.getInstance().registarUser(user);
+
         System.out.println("Seu login é: " + user.getLogin());
     }
 
