@@ -15,9 +15,9 @@ import Academico.Materia;
 public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃO SECRETÁRIA
     private static Secretaria instancia;
 
-    private static final String caminhoDosCursos = "src/Data/cursos.txt";
-    private static final String caminhoDasMaterias = "src/Data/materias.txt";
-    private static final String caminhoDosUsuarios = "src/Data/usuarios.txt";
+    private static final String caminhoDosCursos = "C:\\Users\\Lucas\\Documents\\GitHub\\AEDS-II\\LAB01_DesenvolvimentoDeSoftware\\Implementacao\\ProjetoLab\\src\\Data\\cursos.txt";
+    private static final String caminhoDasMaterias = "C:\\Users\\Lucas\\Documents\\GitHub\\AEDS-II\\LAB01_DesenvolvimentoDeSoftware\\Implementacao\\ProjetoLab\\src\\Data\\materias.txt";
+    private static final String caminhoDosUsuarios = "C:\\Users\\Lucas\\Documents\\GitHub\\AEDS-II\\LAB01_DesenvolvimentoDeSoftware\\Implementacao\\ProjetoLab\\src\\Data\\usuarios.txt";
 
     private List<User> usuarios;
     private List<User> alunos;
@@ -53,28 +53,78 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
         return instancia;
     }
 
-    private void carregarUsuarios() {
+    public void carregarUsuarios() {
         File arquivo = new File(caminhoDosUsuarios);
-        if (!arquivo.exists()) return;
-
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo de usuários não encontrado.");
+            return;
+        }
+    
+        usuarios.clear(); // Limpa a lista antes de carregar os dados
+    
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
             String linha;
+    
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(",");
-                if (partes.length == 4) {
-                    usuarios.add(new User(Integer.parseInt(partes[0]), partes[1], partes[2], Integer.parseInt(partes[3])));
+    
+                if (partes.length < 4) {
+                    System.out.println("Linha inválida ignorada: " + linha);
+                    continue;  // Ignora linhas inválidas
                 }
+    
+                int id = Integer.parseInt(partes[0]);
+                String nome = partes[1];
+                String senha = partes[2];
+                int tipo = Integer.parseInt(partes[3]);
+    
+                User usuario = new User(id, nome, senha, tipo);
+                usuarios.add(usuario);
             }
-            User.setID();
-        } catch (IOException e) {
+            System.out.println("Usuários carregados com sucesso!");
+    
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
     }
 
+    public void listarUsuarios() {
+        carregarUsuarios(); // Garante que os usuários estão carregados antes da listagem
+    
+        System.out.println("\n === LISTA DE USUÁRIOS ===\n");
+    
+        System.out.println(" Alunos:");
+        for (User u : usuarios) {
+            if (u.getTIPO() == 1) {
+                System.out.println("  - " + u.getLogin() + " | " + u.getNome());
+            }
+        }
+    
+        System.out.println("\n Professores:");
+        for (User u : usuarios) {
+            if (u.getTIPO() == 2) {
+                System.out.println("  - " + u.getLogin() + " | " + u.getNome());
+            }
+        }
+    
+        System.out.println("\n Agentes Financeiros:");
+        for (User u : usuarios) {
+            if (u.getTIPO() == 3) {
+                System.out.println("  - " + u.getLogin() + " | " + u.getNome());
+            }
+        }
+    }
+    
+    
+
     private void adicionarUsuarioArquivo(User user) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(caminhoDosUsuarios, true))) {
-            bw.write(user.toString());
-            bw.newLine();
+        try (FileWriter fw = new FileWriter(caminhoDosUsuarios, true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+    
+                out.println(user.getLogin() + "," + user.getNome() + "," + user.getPassword() + "," + user.getTIPO());
+            System.out.println("Usuário salvo no arquivo: " + user);
+    
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,15 +143,34 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
     }
 
     public Integer localizarUltimoID() {
-    try (Stream<String> linhas = Files.lines(Paths.get(caminhoDosUsuarios))) {
-        return linhas.reduce((first, second) -> second)  // Pega a última linha
-                .map(l -> Integer.parseInt(l.split(",")[0])) // Extrai o ID
-                .orElse(0);
-    } catch (IOException | NumberFormatException e) {
-        e.printStackTrace();
+        File arquivo = new File(caminhoDosUsuarios);
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo de usuários não encontrado. Retornando ID 0.");
+            return 0;
+        }
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            String ultimaLinha = null;
+    
+            while ((linha = br.readLine()) != null) {
+                ultimaLinha = linha;
+            }
+    
+            if (ultimaLinha == null) {
+                System.out.println("Arquivo vazio. Retornando ID 0.");
+                return 0;
+            }
+    
+            String[] partes = ultimaLinha.split(",");
+            int ultimoID = Integer.parseInt(partes[0]);
+            System.out.println("Último ID encontrado: " + ultimoID);
+            return ultimoID;
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
-    return 0;
-}
 
     public boolean removerUsuario(Integer login) {
         boolean removido = usuarios.removeIf(user -> user.login.equals(login));
@@ -114,9 +183,13 @@ public class Secretaria extends User { //PARA ESCLARECIMENTO É SECRETARIA E NÃ
     }
 
     public void registarUser(User user) {
+        int novoID = localizarUltimoID() + 1;  // Garante que o ID é único
+        user.setLogin(novoID);  // Atualiza o ID do usuário antes de salvar
         usuarios.add(user);
         adicionarUsuarioArquivo(user);
+        System.out.println("Novo usuário cadastrado com ID: " + novoID);
     }
+    
 
     public User buscarUsuarioPorlogin(Integer login) {
         return usuarios.stream()

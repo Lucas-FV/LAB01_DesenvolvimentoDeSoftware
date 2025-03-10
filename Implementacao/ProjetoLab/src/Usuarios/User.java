@@ -5,11 +5,27 @@ import java.util.Objects;
 public class User {
     protected static int id;
     protected Integer login;
+    public void setLogin(Integer login) {
+        this.login = login;
+    }
+
     protected String nome;
     protected String password;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     protected static final int ADM = 0, ALUNO = 1, PROF = 2, COBRADOR = 3;
     protected final int TIPO;
 
+
+    public int getTIPO() {
+        return TIPO;
+    }
 
     protected User(String nome, String password, int tipo){
         this.nome = nome;
@@ -47,5 +63,7 @@ public class User {
     public String toString() {
         return login + "," + nome + "," + password + "," + TIPO;
     }
+
+
 
 }
