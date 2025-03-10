@@ -1,86 +1,126 @@
 @startuml diagramaDeClasse
 
-
-package "Usuarios"{
+package "Usuarios" {
     User <|-- Aluno
-    User <|-- Prof
-    User <|-- Sec
-    User <|-- Cobrador
+    User <|-- Professor
+    User <|-- Secretaria
+    User <|-- AgenteFinanceiro
 
-    abstract class "User"{ 
-        -Long id 
-        -String nome 
-        -String password
-
-        +void login()
-        +void cadastrar(String nome, String password)
+    abstract class "User" { 
+        - Integer login
+        - String nome
+        - String password
+        - static Integer id
+        + static void setID()
+        + static boolean autenticar(Integer login, String senha)
+        - void adicionarUsuarioArquivo(User user)
+        - void salvarUsuarios()
+        - static User buscarUsuarioPorlogin(Integer login)
     }
 
-    class "Aluno"{ 
-        -Materia[] materias
-        -Map<Materia, Long> notas
-
-        +void matricular(Materia materia)
-        +void cancelarMatricula()
+    class "Aluno" { 
+        - List<Matricula> matriculas
+        - Map<Materia, Long> notas
+        + void matricular(Materia materia)
+        + void cancelarMatricula()
     }
 
-    class "Professor" as Prof{
-        -Materia[] materias
-        +void atribuirMateria(Materia materia)
+    class "Professor" {
+        - List<Materia> materias
+        + void atribuirMateria(Materia materia)
+        + void atribuirNota(Aluno aluno, Materia materia, Long nota)
     }
 
-    class "Secretaria" as Sec{
-        -List<User> usuarios
-
-        +void cadastrarMateria(String nome, Professor prof)
+    class "Secretaria" {
+        - List<User> usuarios
+        - List<User> alunos
+        - List<User> professors
+        - List<User> cobradores
+        - List<Curso> cursos
+        - List<Materia> todasMaterias
+        + void cadastrarMateria(String nome, Professor prof)
+        + void cadastrarCurso(String nome, Curriculo curriculo)
+        + User buscarUsuarioPorlogin(Integer login)
+        + void registarUser(User user)
+        - void carregarUsuarios()
+        - void carregarCursos()
+        - void carregarMaterias()
+        - void separarUsuarios()
+        - void adicionarUsuarioArquivo(User user)
+        - void salvarUsuarios()
+        - void adicionarCursoArquivo(Curso curso)
+        - void salvarCursos()
+        - void adicionarMateriaArquivo(Materia materia)
+        - void salvarMaterias()
+        - Integer localizarUltimoID()
+        - boolean removerUsuario(Integer login)
+        - boolean removerCurso(String nome)
+        - User getProfessorByName(String nome)
+        - void carregarMaterias()
     }
 
-    class "Agente Financeiro" as Cobrador{
-        +void gerarBoleto(Aluno aluno)
+    class "AgenteFinanceiro" {
+        + void gerarBoleto(Aluno aluno)
     }
-
 }
 
-package "Academico"{
-    Materia -- Prof
+package "Academico" {
+    Materia -- Professor
     Aluno -- Materia
     Curriculo *-- Curso
     Curriculo o-- Materia
+    Matricula -- Aluno
+    Matricula -- Materia
+    PeriodoMatricula -- Matricula
 
     class "Materia" { 
-        -String nome 
-        -Professor responsavel 
-        -Final int maximoAlunos
-
-        +String ConsultarAlunos()
-        +void cadastrarAluno(Aluno aluno) 
+        - String nome
+        - Professor responsavel
+        - final int maximoAlunos
+        + String consultarAlunos()
+        + void cadastrarAluno(Aluno aluno)
+        + boolean verificarAtivacao()
+        - void adicionarAluno(Aluno aluno)
     }
 
-
-    class "Curso"{
-        -String nome
-        -int creditos
-        -Curriculo curriculo
-
-        +void cadastrarCurriculo()
+    class "Curso" {
+        - String nome
+        - int creditos
+        - Curriculo curriculo
+        + void cadastrarCurriculo(Curriculo curriculo)
+        - void adicionarCurriculo(Curriculo curriculo)
     }
 
-    class "Curriculo"{
-        -List<Materia> disciplinas
-        +void cadastrarMateria(Materia materia)
+    class "Curriculo" {
+        - List<Materia> disciplinas
+        + void cadastrarMateria(Materia materia)
+        - void adicionarMateria(Materia materia)
+    }
+
+    class "Matricula" {
+        - Materia materia
+        - Aluno aluno
+        + boolean matricular(Materia materia)
+        + void cancelarMatricula()
+        - boolean verificarMatricula()
+    }
+
+    class "PeriodoMatricula" {
+        - static boolean aberto
+        + static boolean isAberto()
+        + void abrirMatriculas()
+        + void fecharMatriculas()
     }
 }
 
-package "Financeiro"{ 
-    Cobrador -- Cobranca
+package "Financeiro" { 
+    AgenteFinanceiro -- Cobranca
 
-    class "Cobranca"{
-        -Long id
-        -Double valor
-
-        -Double calcValor(Aluno aluno)
+    class "Cobranca" {
+        - Long id
+        - Double valor
+        + Double calcularValor(Aluno aluno)
     } 
 }
-
 
 @enduml
