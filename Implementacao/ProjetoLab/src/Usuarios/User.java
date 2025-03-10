@@ -26,7 +26,11 @@ public class User {
         this.TIPO = tipo;
     }
 
-    
+
+     public String getNome() {
+        return nome;
+    }
+
     protected static void setID(){
         id = Secretaria.getInstance().localizarUltimoID() + 1;
     }

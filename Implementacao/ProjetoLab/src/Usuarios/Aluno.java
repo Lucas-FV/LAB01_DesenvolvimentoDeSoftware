@@ -17,8 +17,16 @@ public class Aluno extends User {
         notas = new HashMap<>();
     }
 
+    public String getNome() {
+        return super.getNome();
+    }
+
     public List<Matricula> getMatriculas(){
         return matriculas;
+    }
+
+     public Map<Materia, Long> getNotas() {
+        return notas;
     }
 
 }

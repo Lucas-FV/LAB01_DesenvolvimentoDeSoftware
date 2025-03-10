@@ -1,0 +1,8 @@
+Curso A,100,Matematica | Prof. João Pedro - Fisica | Prof. Cláudia Silva - Quimica | Prof. Roberto Lima - Biologia | Prof. Marina Costa - Historia | Prof. Paulo Souza - Geografia | Prof. Letícia Lima
+Curso B,100,Programacao | Prof. Roberto Lima - Direito | Prof. Cláudia Silva - Economia | Prof. João Pedro - Contabilidade | Prof. Letícia Lima - Psicologia | Prof. Marina Costa - Sociologia | Prof. Paulo Souza
+Curso C,100,Engenharia | Prof. Roberto Lima - Física | Prof. Cláudia Silva - Química | Prof. João Pedro - Biologia | Prof. Marina Costa - Matemática | Prof. Paulo Souza - Geografia | Prof. Letícia Lima
+Curso D,100,Direito | Prof. João Pedro - Sociologia | Prof. Cláudia Silva - Psicologia | Prof. Roberto Lima - Contabilidade | Prof. Marina Costa - Economia | Prof. Paulo Souza - História | Prof. Letícia Lima
+Curso E,100,Medicina | Prof. Roberto Lima - Biologia | Prof. Cláudia Silva - Química | Prof. João Pedro - Anatomia | Prof. Marina Costa - Patologia | Prof. Paulo Souza - Farmacologia | Prof. Letícia Lima
+Curso F,100,Artes | Prof. João Pedro - Pintura | Prof. Cláudia Silva - Música | Prof. Roberto Lima - Escultura | Prof. Marina Costa - Dança | Prof. Paulo Souza - Teatro | Prof. Letícia Lima
+Curso G,100,Arquitetura | Prof. João Pedro - Design | Prof. Cláudia Silva - Urbanismo | Prof. Roberto Lima - Engenharia | Prof. Marina Costa - Estruturas | Prof. Paulo Souza - Estética | Prof. Letícia Lima
+Curso H,100,Psicologia | Prof. João Pedro - Neurociência | Prof. Cláudia Silva - Terapia | Prof. Roberto Lima - Comportamento | Prof. Marina Costa - Psiquiatria | Prof. Paulo Souza - Sociologia | Prof. Letícia Lima

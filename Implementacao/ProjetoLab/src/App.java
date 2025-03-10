@@ -57,7 +57,6 @@ public class App {
         System.out.println("Seu login é: " + user.getLogin());
     }
 
-
     private static void listarUsuarios() {
         System.out.println("\n === LISTA DE USUÁRIOS ===");
 

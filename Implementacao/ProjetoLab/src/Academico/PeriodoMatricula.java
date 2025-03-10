@@ -1,7 +1,7 @@
 package Academico;
 
-public  class PeriodoMatricula {
-    private boolean aberto = false;
+public class PeriodoMatricula {
+    private static boolean aberto = false;
 
     public void abrirMatriculas() {
         aberto = true;
@@ -11,7 +11,7 @@ public  class PeriodoMatricula {
         aberto = false;
     }
 
-    public boolean isAberto() {
+    public static boolean isAberto() {
         return aberto;
     }
 }
